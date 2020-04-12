@@ -2,7 +2,7 @@
 
 set -x
 
-MITAMAE_VERSION="1.7.2"
+MITAMAE_VERSION="1.11.7"
 
 if [ ! -e bin/mitamae ]; then
   curl -LJo bin/mitamae https://github.com/k0kubun/mitamae/releases/download/v${MITAMAE_VERSION}/mitamae-x86_64-linux
