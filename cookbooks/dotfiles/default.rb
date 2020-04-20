@@ -6,5 +6,5 @@ git 'kenchan/dotfiles' do
 end
 
 execute 'run rcup' do
-  command "RCRC=#{DOTFILES_DIR}/rcrc rcup"
+  command "RCRC=#{DOTFILES_DIR}/rcrc rcup -f"
 end
