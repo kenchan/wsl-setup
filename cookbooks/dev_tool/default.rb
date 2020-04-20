@@ -17,7 +17,7 @@ end
   build-essential
   libssl-dev
   libyaml-dev
-  libreadline6-dev
+  libreadline-dev
   zlib1g-dev
   libncurses5-dev
   libffi-dev
