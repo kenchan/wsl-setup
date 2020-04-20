@@ -3,6 +3,7 @@ packages = %w(
   fish
   tmux
   peco
+  kubectl
 ).each do |pkg|
   package pkg do
     user "root"
