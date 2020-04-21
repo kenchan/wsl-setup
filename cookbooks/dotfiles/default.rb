@@ -7,4 +7,5 @@ end
 
 execute 'run rcup' do
   command "RCRC=#{DOTFILES_DIR}/rcrc rcup -f"
+  not_if 'lsrc | grep -q dotfiles'
 end
