@@ -8,7 +8,6 @@ execute "add kubectl apt repository" do
   user "root"
   command 'echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" |  tee -a /etc/apt/sources.list.d/kubernetes.list'
   not_if "test -e /etc/apt/sources.list.d/kubernetes.list"
-  notifies :run, 'execute[apt-get update]'
 end
 
 packages = %w(
