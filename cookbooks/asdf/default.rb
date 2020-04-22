@@ -6,16 +6,20 @@ git 'install asdf' do
   revision 'v0.7.8'
 end
 
-
-IO.read("#{ENV['HOME']}/.tool-versions").split.each_slice(2) do |lang, version|
+%w(
+  ruby
+  nodejs
+  python
+  rust
+).each do |lang|
   execute "asdf plugin add #{lang}" do
-    command "#{asdf_init} asdf plugin add #{lang}'"
-    not_if "#{asdf_init} asdf plugin list | grep -q #{lang}'"
+    command "#{ASDF_INIT} asdf plugin add #{lang}'"
+    not_if "#{ASDF_INIT} asdf plugin list | grep -q #{lang}'"
   end
 
-  execute "asdf install #{lang} #{version}" do
-    command "#{asdf_init} asdf install #{lang} #{version}'"
-    not_if "#{asdf_init} asdf list #{lang} | grep -q #{version}'"
+  execute "asdf install #{lang} latest" do
+    command "#{ASDF_INIT} asdf install #{lang} latest'"
+    only_if "#{ASDF_INIT} asdf list #{lang} | grep -q \"No versions installed\"'"
   end
 end
 
@@ -23,8 +27,4 @@ execute 'install nodejs keyring' do
   command "bash #{ENV['HOME']}/.asdf/plugins/nodejs/bin/import-release-team-keyring"
   action :nothing
   subscribes :run, 'execute[asdf plugin add nodejs]', :immediately
-end
-
-execute 'install ghq' do
-  command "#{asdf_init} go get github.com/x-motemen/ghq'"
 end
