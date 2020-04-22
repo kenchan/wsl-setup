@@ -6,6 +6,7 @@ git 'install asdf' do
   revision 'v0.7.8'
 end
 
+
 IO.read("#{ENV['HOME']}/.tool-versions").split.each_slice(2) do |lang, version|
   execute "asdf plugin add #{lang}" do
     command "#{asdf_init} asdf plugin add #{lang}'"
