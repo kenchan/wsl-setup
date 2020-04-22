@@ -12,7 +12,6 @@ execute "add kubectl apt repository" do
 end
 
 packages = %w(
-  fish
   tmux
   peco
   kubectl
@@ -32,4 +31,6 @@ end
 execute 'install starship' do
   command "install/install.sh -y -b #{ENV['HOME']}/bin"
   cwd "#{ENV['HOME']}/src/github.com/starship/starship"
+  subscribes :run, 'git[https://github.com/starship/starship]'
+  action :nothing
 end
