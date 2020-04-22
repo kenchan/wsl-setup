@@ -19,7 +19,8 @@ end
 
   execute "asdf install #{lang} latest" do
     command "#{ASDF_INIT} asdf install #{lang} latest'"
-    only_if "#{ASDF_INIT} asdf list #{lang} | grep -q \"No versions installed\"'"
+    only_if "#{ASDF_INIT} asdf list #{lang} | grep -q \"\"'"
+    # 何もインストールされていない場合、stdoutは空文字でstderrに出力がある
   end
 end
 
