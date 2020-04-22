@@ -1,3 +1,21 @@
+%w(
+  autoconf
+  bison
+  build-essential
+  libssl-dev
+  libyaml-dev
+  libreadline-dev
+  zlib1g-dev
+  libncurses5-dev
+  libffi-dev
+  libgdbm5
+  libgdbm-dev
+).each do |pkg|
+  package pkg do
+    user "root"
+  end
+end
+
 ASDF_INIT = "/bin/bash -c '. #{ENV['HOME']}/.asdf/asdf.sh;"
 
 git 'install asdf' do
