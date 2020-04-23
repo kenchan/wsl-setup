@@ -7,6 +7,7 @@ DOTFILES_DIR = "#{ENV['HOME']}/src/github.com/kenchan/dotfiles"
 git 'kenchan/dotfiles' do
   repository 'https://github.com/kenchan/dotfiles'
   destination DOTFILES_DIR
+  revision 'master'
 end
 
 execute 'run rcup' do
