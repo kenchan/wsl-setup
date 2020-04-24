@@ -8,7 +8,7 @@
   zlib1g-dev
   libncurses5-dev
   libffi-dev
-  libgdbm5
+  libgdbm6
   libgdbm-dev
 ).each do |pkg|
   package pkg do

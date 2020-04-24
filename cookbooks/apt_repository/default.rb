@@ -31,9 +31,3 @@ execute "add thoutbot's apt repository" do
   not_if "test -e /etc/apt/sources.list.d/thoughtbot.list"
   notifies :run, 'execute[apt-get update]'
 end
-
-execute 'add-apt-repository -y ppa:longsleep/golang-backports' do
-  user 'root'
-  not_if 'apt-cache policy | grep -q longsleep/golang-backports'
-  notifies :run, 'execute[apt-get update]'
-end
