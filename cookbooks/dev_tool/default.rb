@@ -1,6 +1,7 @@
 packages = %w(
   kubectl
   peco
+  ripgrep
   tmux
   unzip
 ).each do |pkg|
