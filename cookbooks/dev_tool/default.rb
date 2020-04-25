@@ -1,7 +1,8 @@
 packages = %w(
-  tmux
-  peco
   kubectl
+  peco
+  tmux
+  unzip
 ).each do |pkg|
   package pkg do
     user "root"
@@ -21,3 +22,16 @@ execute 'install starship' do
   subscribes :run, 'git[https://github.com/starship/starship]'
   action :nothing
 end
+
+execute 'install aws-cli v2' do
+  cwd '/tmp'
+  user 'root'
+  command <<-EOS
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip";
+    unzip awscliv2.zip;
+    ./aws/install;
+    rm awscliv2.zip;
+  EOS
+  not_if 'command -v aws'
+end
+
