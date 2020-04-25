@@ -29,6 +29,7 @@ end
   nodejs
   python
   rust
+  terraform
 ).each do |lang|
   execute "asdf plugin add #{lang}" do
     command "#{ASDF_INIT} asdf plugin add #{lang}'"
