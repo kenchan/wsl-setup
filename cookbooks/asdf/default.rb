@@ -2,14 +2,14 @@
   autoconf
   bison
   build-essential
+  libffi-dev
+  libgdbm-dev
+  libgdbm6
+  libncurses5-dev
+  libreadline-dev
   libssl-dev
   libyaml-dev
-  libreadline-dev
   zlib1g-dev
-  libncurses5-dev
-  libffi-dev
-  libgdbm6
-  libgdbm-dev
 ).each do |pkg|
   package pkg do
     user "root"
