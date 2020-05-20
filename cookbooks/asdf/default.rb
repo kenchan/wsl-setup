@@ -2,13 +2,29 @@
   autoconf
   bison
   build-essential
+  curl
+  gettext
+  libcurl4-openssl-dev
+  libedit-dev
   libffi-dev
   libgdbm-dev
   libgdbm6
+  libicu-dev
+  libjpeg-dev
+  libmysqlclient-dev
   libncurses5-dev
+  libonig-dev
+  libpng-dev
+  libpq-dev
   libreadline-dev
+  libsqlite3-dev
   libssl-dev
+  libxml2-dev
   libyaml-dev
+  libzip-dev
+  openssl
+  pkg-config
+  re2c
   zlib1g-dev
 ).each do |pkg|
   package pkg do
@@ -30,6 +46,7 @@ end
   python
   rust
   terraform
+  php
 ).each do |lang|
   execute "asdf plugin add #{lang}" do
     command "#{ASDF_INIT} asdf plugin add #{lang}'"
