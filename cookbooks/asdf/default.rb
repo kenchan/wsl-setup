@@ -26,6 +26,7 @@
   pkg-config
   re2c
   zlib1g-dev
+  libbz2-dev
 ).each do |pkg|
   package pkg do
     user "root"
