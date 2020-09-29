@@ -31,3 +31,16 @@ execute "add thoutbot's apt repository" do
   not_if "test -e /etc/apt/sources.list.d/thoughtbot.list"
   notifies :run, 'execute[apt-get update]'
 end
+
+execute "import github cli's gpg key" do
+  user "root"
+  command "apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0"
+  not_if "apt-key list | grep -E -q '^uid(.*)@github.com'"
+end
+
+execute "add github cli's apt repository" do
+  user "root"
+  command "sudo apt-add-repository https://cli.github.com/packages"
+  not_if "apt-cache policy | grep -q 'cli.github.com'"
+  notifies :run, 'execute[apt-get update]'
+end

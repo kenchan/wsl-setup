@@ -4,6 +4,7 @@ packages = %w(
   ripgrep
   tmux
   unzip
+  gh
 ).each do |pkg|
   package pkg do
     user "root"
