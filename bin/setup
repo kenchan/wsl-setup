@@ -2,9 +2,12 @@
 
 set -x
 
-MITAMAE_VERSION="1.11.7"
+MITAMAE_VERSION="1.12.9"
 
 if [ ! -e bin/mitamae ]; then
-  curl -LJo bin/mitamae https://github.com/k0kubun/mitamae/releases/download/v${MITAMAE_VERSION}/mitamae-x86_64-linux
-  chmod +x bin/mitamae
+  curl -o bin/mitamae-x86_64-linux.tar.gz -L https://github.com/itamae-kitchen/mitamae/releases/download/v${MITAMAE_VERSION}/mitamae-x86_64-linux.tar.gz
+
+  tar zxvf bin/mitamae-x86_64-linux.tar.gz -C bin
+  rm bin/mitamae-x86_64-linux.tar.gz
+  mv bin/mitamae-x86_64-linux bin/mitamae
 fi
