@@ -8,6 +8,6 @@ git clone https://github.com/kenchan/wsl-ubuntu-setup.git ~/src/github.com/kench
 pushd ~/src/github.com/kenchan/wsl-ubuntu-setup
 
 bin/setup
-bin/mitamae local recipe.rb
+sudo bin/mitamae local recipe.rb
 
 popd
