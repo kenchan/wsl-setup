@@ -38,7 +38,7 @@ ASDF_INIT = "/bin/bash -c '. #{ENV['HOME']}/.asdf/asdf.sh;"
 git 'install asdf' do
   repository 'https://github.com/asdf-vm/asdf.git'
   destination "#{ENV['HOME']}/.asdf"
-  revision 'v0.7.8'
+  revision 'v0.9.0'
 end
 
 %w(
