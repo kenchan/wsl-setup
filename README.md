@@ -1,9 +1,10 @@
-# My personal WSL(Ubuntu) setup
+# My personal WSL setup
 
 ## Usage
 
-in WSL Ubuntu 20.04
+- Ubuntu 20.04
+- Distrod(Gentoo)
 
 ```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kenchan/wsl-ubuntu-setup/master/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kenchan/wsl-setup/master/install.sh)"
 ```
