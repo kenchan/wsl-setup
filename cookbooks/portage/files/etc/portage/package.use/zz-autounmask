@@ -1,0 +1,7 @@
+# package.use# required by app-shells/fish-3.3.1-r1::gentoo
+# required by @selected
+# required by @world (argument)
+>=dev-libs/libpcre2-10.39 pcre32
+# required by x11-misc/xdg-utils-1.1.3_p20200220-r5::gentoo
+# required by xdg-utils (argument)
+>=app-text/xmlto-0.0.28-r8 text
