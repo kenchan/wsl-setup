@@ -2,9 +2,9 @@ app-admin/kubectx
 app-admin/rcm
 app-admin/sudo
 app-arch/zip
+app-containers/docker
 app-editors/neovim
 app-editors/vim
-app-emulation/docker
 app-eselect/eselect-repository
 app-i18n/nkf
 app-misc/ghq
