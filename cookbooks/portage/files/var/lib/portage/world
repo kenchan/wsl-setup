@@ -5,7 +5,6 @@ app-arch/zip
 app-benchmarks/hyperfine
 app-containers/docker
 app-editors/neovim
-app-editors/vim
 app-eselect/eselect-repository
 app-i18n/nkf
 app-misc/ghq
