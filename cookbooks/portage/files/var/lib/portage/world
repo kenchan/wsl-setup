@@ -22,6 +22,7 @@ dev-lang/rust-bin
 dev-util/git-delta
 dev-util/github-cli
 dev-vcs/git
+dev-vcs/git-lfs
 media-gfx/imagemagick
 net-dns/bind-tools
 net-dns/dog
