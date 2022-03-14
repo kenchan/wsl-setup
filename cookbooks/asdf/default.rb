@@ -52,6 +52,7 @@ end
   nodejs
   ruby
   terraform
+  deno
 ).each do |lang|
   execute "asdf plugin add #{lang}" do
     command "#{ASDF_INIT} asdf plugin add #{lang}'"
