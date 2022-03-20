@@ -14,7 +14,6 @@ app-portage/eix
 app-portage/flaggie
 app-portage/gentoolkit
 app-shells/fish
-app-shells/peco
 app-shells/starship
 dev-db/percona-toolkit
 dev-lang/rust-bin
