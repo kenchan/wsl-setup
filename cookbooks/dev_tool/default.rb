@@ -6,9 +6,7 @@ packages = %w(
   unzip
   gh
 ).each do |pkg|
-  package pkg do
-    user "root"
-  end
+  package pkg
 end
 
 directory "#{ENV['HOME']}/bin"
@@ -27,7 +25,6 @@ end
 
 execute 'install aws-cli v2' do
   cwd '/tmp'
-  user 'root'
   command <<-EOS
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip";
     unzip awscliv2.zip;

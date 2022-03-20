@@ -8,6 +8,7 @@ git clone git@github.com:kenchan/wsl-setup.git ~/src/github.com/kenchan/wsl-setu
 pushd ~/src/github.com/kenchan/wsl-setup
 
 bin/setup
-bin/mitamae local $@ recipe.rb
+sudo bin/mitamae local $@ system.rb
+bin/mitamae local $@ user.rb
 
 popd

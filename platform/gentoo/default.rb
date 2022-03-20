@@ -1,7 +1,3 @@
 include_recipe '../../cookbooks/eix/defualt.rb'
 include_recipe '../../cookbooks/eselect_repository/default.rb'
 include_recipe '../../cookbooks/portage/default.rb'
-include_recipe '../../cookbooks/dotfiles/default.rb'
-include_recipe '../../cookbooks/fish/default.rb'
-include_recipe '../../cookbooks/asdf/default.rb'
-include_recipe '../../cookbooks/nvim/default.rb'
