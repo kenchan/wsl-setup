@@ -21,6 +21,15 @@ link '/etc/profile.d/makeopts.sh' do
   user 'root'
 end
 
-execute 'emerge -uDN @world' do
+directory '/var/db/repos/gentoo' do
+  action :delete
+  user 'root'
+  not_if "test -d /var/db/repos/gentoo/.git"
+  notifies :run, 'execute[git clone portage tree]', :immediately
+end
+
+execute 'git clone portage tree' do
+  action :nothing
+  command 'git clone https://github.com/gentoo-mirror/gentoo.git /var/db/repos/gentoo'
   user 'root'
 end
