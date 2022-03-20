@@ -4,6 +4,7 @@ app-admin/sudo
 app-arch/zip
 app-benchmarks/hyperfine
 app-containers/docker
+app-containers/docker-compose
 app-editors/neovim
 app-eselect/eselect-repository
 app-i18n/nkf
