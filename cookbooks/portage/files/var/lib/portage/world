@@ -25,7 +25,6 @@ dev-vcs/git-lfs
 media-gfx/imagemagick
 net-dns/bind-tools
 net-dns/dog
-net-misc/keychain
 net-misc/pssh
 net-misc/whois
 net-proxy/sshuttle
