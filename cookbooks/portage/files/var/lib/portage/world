@@ -38,4 +38,3 @@ sys-cluster/kubectl
 sys-devel/mold
 sys-process/htop
 sys-process/lsof
-x11-misc/xdg-utils
