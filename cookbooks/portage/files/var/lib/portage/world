@@ -1,6 +1,8 @@
+app-admin/consul-template
 app-admin/kubectx
 app-admin/rcm
 app-admin/sudo
+app-admin/vault
 app-arch/zip
 app-benchmarks/hyperfine
 app-containers/docker
@@ -26,6 +28,7 @@ media-gfx/imagemagick
 net-dns/bind-tools
 net-dns/dog
 net-misc/pssh
+net-misc/socat
 net-misc/whois
 net-proxy/sshuttle
 sys-apps/bat
