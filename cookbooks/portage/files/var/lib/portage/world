@@ -5,6 +5,7 @@ app-admin/sudo
 app-admin/vault
 app-arch/zip
 app-benchmarks/hyperfine
+app-benchmarks/siege
 app-containers/docker
 app-containers/docker-compose
 app-editors/neovim
@@ -36,6 +37,7 @@ sys-apps/fd
 sys-apps/lsd
 sys-apps/plocate
 sys-apps/ripgrep
+sys-apps/sd
 sys-cluster/kubectl
 sys-devel/mold
 sys-process/htop
