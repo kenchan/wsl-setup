@@ -9,6 +9,7 @@ app-benchmarks/siege
 app-containers/docker
 app-containers/docker-compose
 app-editors/neovim
+app-emulation/vagrant
 app-eselect/eselect-repository
 app-i18n/nkf
 app-misc/ghq
@@ -20,6 +21,7 @@ app-portage/gentoolkit
 app-shells/fish
 app-shells/starship
 dev-db/percona-toolkit
+dev-db/redis
 dev-lang/rust-bin
 dev-util/git-delta
 dev-util/github-cli
