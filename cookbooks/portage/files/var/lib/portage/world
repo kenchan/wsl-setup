@@ -23,6 +23,7 @@ app-shells/starship
 dev-db/percona-toolkit
 dev-db/redis
 dev-lang/rust-bin
+dev-python/pipenv
 dev-util/git-delta
 dev-util/github-cli
 dev-vcs/git
