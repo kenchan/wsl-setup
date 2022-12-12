@@ -31,7 +31,6 @@ dev-vcs/git-lfs
 dev-vcs/lazygit
 media-gfx/imagemagick
 net-dns/bind-tools
-net-dns/dog
 net-misc/pssh
 net-misc/socat
 net-misc/whois
