@@ -26,10 +26,12 @@ dev-lang/rust-bin
 dev-python/pipenv
 dev-util/git-delta
 dev-util/github-cli
+dev-util/valgrind
 dev-vcs/git
 dev-vcs/git-lfs
 dev-vcs/lazygit
 media-gfx/imagemagick
+media-video/ffmpeg
 net-dns/bind-tools
 net-misc/pssh
 net-misc/socat
@@ -42,6 +44,7 @@ sys-apps/plocate
 sys-apps/ripgrep
 sys-apps/sd
 sys-cluster/kubectl
+sys-cluster/minikube
 sys-devel/mold
 sys-process/htop
 sys-process/lsof
