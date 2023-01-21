@@ -2,7 +2,6 @@ app-admin/consul-template
 app-admin/kubectx
 app-admin/rcm
 app-admin/sudo
-app-admin/vault
 app-arch/zip
 app-benchmarks/hyperfine
 app-benchmarks/siege
@@ -16,12 +15,10 @@ app-misc/ghq
 app-misc/jq
 app-misc/tmux
 app-portage/eix
-app-portage/flaggie
 app-portage/gentoolkit
 app-shells/fish
 app-shells/starship
 dev-db/percona-toolkit
-dev-db/redis
 dev-lang/rust-bin
 dev-python/pipenv
 dev-util/git-delta
@@ -34,7 +31,6 @@ media-gfx/imagemagick
 media-video/ffmpeg
 net-dns/bind-tools
 net-misc/pssh
-net-misc/socat
 net-misc/whois
 net-proxy/sshuttle
 sys-apps/bat
