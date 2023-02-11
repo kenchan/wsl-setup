@@ -8,4 +8,3 @@ execute 'install frgm' do
 EOS
   not_if 'command -v frgm'
 end
-
