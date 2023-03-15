@@ -41,6 +41,7 @@ end
   ripgrep
   sd
   peco
+  stow
 ).each do |pkg|
   package pkg
 end
