@@ -4,7 +4,6 @@
   git
   neovim
   wget
-  fish
   unzip
 ).each do |pkg|
   package pkg
@@ -31,6 +30,7 @@ end
   jq
   tmux
   fish
+  fisher
   starship
   git-delta
   github-cli
