@@ -2,6 +2,8 @@ node.reverse_merge({
   user: ENV['SUDO_USER']
 })
 
+include_recipe '../../cookbooks/locale/default.rb'
+
 # base-develはインストールがうまくいかない
 %w(
   base-devel
@@ -68,3 +70,4 @@ execute 'makepkg -si --noconfirm' do
   cwd '/tmp/paru'
   not_if 'command -v paru > /dev/null'
 end
+
