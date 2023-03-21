@@ -1,3 +1,7 @@
+node.reverse_merge({
+  user: ENV['SUDO_USER']
+})
+
 # base-develはインストールがうまくいかない
 %w(
   base-devel
