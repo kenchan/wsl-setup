@@ -1,7 +1,3 @@
-node.reverse_merge({
-  user: ENV['SUDO_USER']
-})
-
 include_recipe '../../cookbooks/locale/default.rb'
 
 # base-develはインストールがうまくいかない
