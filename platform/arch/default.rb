@@ -67,3 +67,21 @@ execute 'makepkg -si --noconfirm' do
   not_if 'command -v paru > /dev/null'
 end
 
+define :aur_package do
+  execute "paru -S -a --noconfirm #{params[:name]}" do
+    user ENV['SUDO_USER']
+    not_if "pacman -Qm | grep -q #{params[:name]}"
+  end
+end
+
+%w(
+  1password-cli
+  ghq
+  google-cloud-cli
+  rcm
+  rtx
+  win32yank-bin
+).each do |pkg|
+  aur_package pkg
+end
+
