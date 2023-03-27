@@ -13,6 +13,7 @@ end
 
 %w(
   docker
+  docker-buildx
   docker-compose
   kubectl
   kubectx
@@ -44,6 +45,7 @@ end
   sd
   peco
   stow
+  zip
 ).each do |pkg|
   package pkg
 end
@@ -86,6 +88,7 @@ end
   rcm
   rtx
   win32yank-bin
+  nkf
 ).each do |pkg|
   aur_package pkg
 end
