@@ -47,6 +47,8 @@ end
   peco
   stow
   zip
+  consul-template
+  vault
 ).each do |pkg|
   package pkg
 end
