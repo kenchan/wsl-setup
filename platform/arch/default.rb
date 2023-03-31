@@ -36,6 +36,7 @@ end
   fisher
   starship
   git-delta
+  git-lfs
   github-cli
   sshuttle
   bat
