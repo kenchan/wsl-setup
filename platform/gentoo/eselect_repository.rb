@@ -1,4 +1,4 @@
-include_recipe 'define.rb'
+include_recipe 'eselect_repository_define.rb'
 
 package 'eselect-repository'
 
