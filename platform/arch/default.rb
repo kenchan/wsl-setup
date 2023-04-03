@@ -32,8 +32,6 @@ end
 %w(
   jq
   tmux
-  fish
-  fisher
   starship
   git-delta
   git-lfs
@@ -104,3 +102,14 @@ file '/etc/pacman.conf' do
 end
 
 include_recipe '../../cookbooks/github_cli/default.rb'
+
+package 'fish'
+
+package 'fisher' do
+  notifies :run, 'execute[fish -c "fisher update"]'
+end
+
+execute 'fish -c "fisher update"' do
+  user ENV['SUDO_USER']
+  action :nothing
+end
