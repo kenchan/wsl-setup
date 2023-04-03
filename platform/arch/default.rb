@@ -124,6 +124,8 @@ execute 'run rcup' do
 end
 
 include_recipe '../../cookbooks/github_cli/default.rb'
+include_recipe '../../cookbooks/ssh/default.rb'
+include_recipe '../../cookbooks/open/default.rb'
 
 package 'fish'
 
