@@ -103,3 +103,4 @@ file '/etc/pacman.conf' do
   end
 end
 
+include_recipe '../../cookbooks/github_cli/default.rb'
