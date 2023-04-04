@@ -125,7 +125,6 @@ end
 
 include_recipe '../../cookbooks/github_cli/default.rb'
 include_recipe '../../cookbooks/ssh/default.rb'
-include_recipe '../../cookbooks/open/default.rb'
 
 package 'fish'
 
@@ -137,3 +136,28 @@ execute 'fish -c "fisher update"' do
   user ENV['SUDO_USER']
   action :nothing
 end
+
+# wslu
+execute 'pacman-key -r A2861ABFD897DD37 && pacman-key --lsign-key A2861ABFD897DD37' do
+  not_if 'pacman-key --list-keys | grep -q A2861ABFD897DD37'
+end
+
+file '/etc/pacman.conf' do
+  action :edit
+  block do |content|
+    unless content =~ /\[wslutilities\]/
+      content << <<EOS
+[wslutilities]
+Server = https://pkg.wslutiliti.es/arch/
+EOS
+    end
+  end
+
+  notifies :run, 'execute[pacman -Sy]', :immediately
+end
+
+execute 'pacman -Sy' do
+  action :nothing
+end
+
+package 'wslu'
