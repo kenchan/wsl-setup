@@ -90,6 +90,8 @@ end
   rtx
   win32yank-bin
   nkf
+  kagiana
+  frgm
 ).each do |pkg|
   aur_package pkg
 end
