@@ -163,3 +163,10 @@ execute 'pacman -Sy' do
 end
 
 package 'wslu'
+
+puts <<-EOS
+```
+gh auth login
+bin/mitamae local user.rb
+```
+EOS
