@@ -1,10 +1,9 @@
-execute 'install frgm' do
-  command <<-EOS
-    pushd /tmp &&
-    curl -L https://github.com/k1LoW/frgm/releases/download/v0.10.0/frgm_v0.10.0_linux_amd64.tar.gz -o frgm.tar.gz
-    tar -zxf frgm.tar.gz frgm &&
-    mv frgm ~/.local/bin
-    rm frgm.tar.gz
-EOS
-  not_if 'command -v frgm'
+execute 'frgm init' do
+  user ENV['SUDO_USER']
+  not_if "test -e /home/#{ENV['SUDO_USER']}/.config/frgm/config.toml"
+end
+
+execute 'yes | frgm repo add https://github.com/kenchan/snippets.git' do
+  user ENV['SUDO_USER']
+  not_if "test -d /home/#{ENV['SUDO_USER']}/.local/share/frgm/snippets/github.com__kenchan__snippets"
 end
