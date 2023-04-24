@@ -62,6 +62,7 @@ git 'https://aur.archlinux.org/paru.git' do
   user ENV['SUDO_USER']
   destination '/tmp/paru'
   repository 'https://aur.archlinux.org/paru.git'
+  not_if 'command -v paru > /dev/null'
 end
 
 execute 'makepkg -si --noconfirm' do
@@ -125,7 +126,6 @@ execute 'run rcup' do
   not_if 'lsrc | grep -q dotfiles'
 end
 
-include_recipe '../../cookbooks/github_cli/default.rb'
 include_recipe '../../cookbooks/ssh/default.rb'
 
 package 'fish'
