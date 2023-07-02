@@ -62,13 +62,14 @@ git 'https://aur.archlinux.org/paru.git' do
   user ENV['SUDO_USER']
   destination '/tmp/paru'
   repository 'https://aur.archlinux.org/paru.git'
+  notifies :run, 'execute[makepkg -si --noconfirm]'
   not_if 'command -v paru > /dev/null'
 end
 
 execute 'makepkg -si --noconfirm' do
+  action :nothing
   user ENV['SUDO_USER']
   cwd '/tmp/paru'
-  not_if 'command -v paru > /dev/null'
 end
 
 define :aur_package do
