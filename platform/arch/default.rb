@@ -86,10 +86,10 @@ end
 
 %w(
   1password-cli
-  ghq
+  ghq-bin
   google-cloud-cli
   rcm
-  rtx
+  rtx-bin
   win32yank-bin
   nkf
   kagiana
