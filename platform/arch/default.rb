@@ -94,6 +94,7 @@ end
   nkf
   kagiana
   frgm
+  tailspin
 ).each do |pkg|
   aur_package pkg
 end
