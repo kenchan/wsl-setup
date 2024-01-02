@@ -91,7 +91,6 @@ end
   rcm
   rtx-bin
   win32yank-bin
-  nkf
   kagiana
   frgm
   tailspin
