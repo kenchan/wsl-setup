@@ -1,5 +1,8 @@
-directory "#{ENV['HOME']}/.local/bin"
+directory "/home/#{ENV['SUDO_USER']}/.local/bin" do
+  user ENV['SUDO_USER']
+end
 
-link "#{ENV['HOME']}/.local/bin/ssh" do
+link "/home/#{ENV['SUDO_USER']}/.local/bin/ssh" do
+  user ENV['SUDO_USER']
   to '/mnt/c/Windows/System32/OpenSSH/ssh.exe'
 end
