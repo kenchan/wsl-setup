@@ -47,6 +47,7 @@ end
   zip
   consul-template
   vault
+  tailspin
 ).each do |pkg|
   package pkg
 end
@@ -93,7 +94,6 @@ end
   win32yank-bin
   kagiana
   frgm
-  tailspin
 ).each do |pkg|
   aur_package pkg
 end
