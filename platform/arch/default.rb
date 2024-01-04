@@ -90,7 +90,7 @@ end
   ghq-bin
   google-cloud-cli
   rcm
-  rtx-bin
+  mise-bin
   win32yank-bin
   kagiana
   frgm
