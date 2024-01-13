@@ -48,6 +48,7 @@ end
   consul-template
   vault
   tailspin
+  socat
 ).each do |pkg|
   package pkg
 end
@@ -126,8 +127,6 @@ execute 'run rcup' do
   command "RCRC=#{DOTFILES_DIR}/rcrc rcup -f"
   not_if 'lsrc | grep -q dotfiles'
 end
-
-include_recipe '../../cookbooks/ssh/default.rb'
 
 package 'fish'
 
