@@ -49,6 +49,8 @@ end
   vault
   tailspin
   socat
+  man
+  less
 ).each do |pkg|
   package pkg
 end
