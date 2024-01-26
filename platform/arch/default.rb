@@ -43,68 +43,6 @@ Specinfra::Command::Arch::Base::Package.extend Paru
 
 include_recipe '../../cookbooks/locale/default.rb'
 
-# base-develはインストールがうまくいかない
-%w(
-  base-devel
-  git
-  neovim
-  wget
-  unzip
-).each do |pkg|
-  package pkg
-end
-
-%w(
-  docker
-  docker-buildx
-  docker-compose
-  kubectl
-  kubectx
-).each do |pkg|
-  package pkg
-end
-
-service 'docker' do
-  action [:enable, :start]
-end
-
-execute "gpasswd -a #{ENV['SUDO_USER']} docker" do
-  not_if "groups #{ENV['SUDO_USER']} | grep -q docker"
-end
-
-%w(
-  jq
-  tmux
-  starship
-  git-delta
-  git-lfs
-  github-cli
-  sshuttle
-  bat
-  fd
-  lsd
-  ripgrep
-  sd
-  peco
-  stow
-  zip
-  consul-template
-  vault
-  tailspin
-  socat
-  man
-  less
-).each do |pkg|
-  package pkg
-end
-
-%w(
-  rust
-  ruby
-).each do |pkg|
-  package pkg
-end
-
 # 1password
 execute 'gpg --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22' do
   user ENV['SUDO_USER']
@@ -113,15 +51,59 @@ end
 
 %w(
   1password-cli
-  ghq-bin
-  google-cloud-cli
-  rcm
-  mise-bin
-  win32yank-bin
-  kagiana
+  base-devel
+  bat
+  consul-template
+  docker
+  docker-buildx
+  docker-compose
+  fd
+  fish
   frgm
+  ghq-bin
+  git
+  git-delta
+  git-lfs
+  github-cli
+  google-cloud-cli
+  jq
+  kagiana
+  kubectl
+  kubectx
+  less
+  lsd
+  man
+  mise-bin
+  neovim
+  peco
+  rcm
+  ripgrep
+  sd
+  socat
+  sshuttle
+  starship
+  stow
+  tailspin
+  tmux
+  unzip
+  vault
+  wget
+  win32yank-bin
+  zip
 ).each do |pkg|
   package pkg
+end
+
+package 'fisher' do
+  notifies :run, 'execute[fish -c "fisher update"]'
+end
+
+service 'docker' do
+  action [:enable, :start]
+end
+
+execute "gpasswd -a #{ENV['SUDO_USER']} docker" do
+  not_if "groups #{ENV['SUDO_USER']} | grep -q docker"
 end
 
 file '/etc/pacman.conf' do
@@ -153,11 +135,6 @@ execute 'run rcup' do
   not_if 'lsrc | grep -q dotfiles'
 end
 
-package 'fish'
-
-package 'fisher' do
-  notifies :run, 'execute[fish -c "fisher update"]'
-end
 
 execute 'fish -c "fisher update"' do
   user ENV['SUDO_USER']
