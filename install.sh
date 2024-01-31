@@ -9,6 +9,6 @@ pushd ~/src/github.com/kenchan/wsl-setup
 
 bin/setup
 sudo bin/mitamae local $@ system.rb
-#bin/mitamae local $@ user.rb
+bin/mitamae local $@ user.rb
 
 popd

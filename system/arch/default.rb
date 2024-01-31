@@ -71,29 +71,6 @@ file '/etc/pacman.conf' do
   end
 end
 
-DOTFILES_DIR = File.expand_path("../../../../dotfiles", __FILE__)
-
-git 'kenchan/dotfiles' do
-  user ENV['SUDO_USER']
-  repository 'https://github.com/kenchan/dotfiles'
-  destination DOTFILES_DIR
-  revision 'master'
-end
-
-execute 'git switch master' do
-  user ENV['SUDO_USER']
-  command 'git switch master && git branch -d deploy'
-  cwd DOTFILES_DIR
-  only_if 'git branch --show-current | grep -q deploy'
-end
-
-execute 'run rcup' do
-  user ENV['SUDO_USER']
-  command "RCRC=#{DOTFILES_DIR}/rcrc rcup -f"
-  not_if 'lsrc | grep -q dotfiles'
-end
-
-
 execute 'fish -c "fisher update"' do
   user ENV['SUDO_USER']
   action :nothing
