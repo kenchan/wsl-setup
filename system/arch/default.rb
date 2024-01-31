@@ -17,6 +17,7 @@ end
   docker-compose
   fd
   fish
+  fisher
   frgm
   ghq-bin
   git
@@ -52,10 +53,6 @@ end
   package pkg
 end
 
-package 'fisher' do
-  notifies :run, 'execute[fish -c "fisher update"]'
-end
-
 service 'docker' do
   action [:enable, :start]
 end
@@ -71,14 +68,9 @@ file '/etc/pacman.conf' do
   end
 end
 
-execute 'fish -c "fisher update"' do
-  user ENV['SUDO_USER']
-  action :nothing
-end
-
 puts <<-EOS
 ```
-gh auth login
-bin/mitamae local user.rb
+$ gh auth login
+$ bin/mitamae local user.rb
 ```
 EOS
