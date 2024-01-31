@@ -1,1 +1,1 @@
-include_recipe "platform/#{node[:platform]}/default.rb"
+include_recipe "cookbooks/#{node[:platform]}/default.rb"
