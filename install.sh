@@ -11,3 +11,5 @@ bin/setup
 sudo bin/mitamae local $@ system.rb
 
 popd
+
+echo -e "\n$ gh auth login\n$ bin/mitamae local user.rb\n"

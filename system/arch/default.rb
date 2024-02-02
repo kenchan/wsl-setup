@@ -47,10 +47,3 @@ include_recipe '../locale/default.rb'
 end
 
 include_recipe '../docker/default.rb'
-
-puts <<-EOS
-```
-$ gh auth login
-$ bin/mitamae local user.rb
-```
-EOS
