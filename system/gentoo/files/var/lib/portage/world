@@ -14,13 +14,13 @@ app-misc/tmux
 app-portage/eix
 app-portage/gentoolkit
 app-shells/fish
-app-shells/fish
 app-shells/starship
 dev-util/git-delta
 dev-util/github-cli
 dev-vcs/git
 dev-vcs/git-lfs
 net-misc/pssh
+net-misc/socat
 net-misc/whois
 net-proxy/sshuttle
 sys-apps/bat
