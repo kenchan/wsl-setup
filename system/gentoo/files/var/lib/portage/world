@@ -13,6 +13,7 @@ app-editors/neovim
 app-emulation/wslu
 app-eselect/eselect-repository
 app-i18n/nkf
+app-misc/1password-cli
 app-misc/ghq
 app-misc/jq
 app-misc/tmux
