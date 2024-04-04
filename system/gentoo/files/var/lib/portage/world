@@ -1,9 +1,14 @@
 app-admin/consul-template
 app-admin/kubectx
 app-admin/rcm
+app-admin/stow
 app-admin/sudo
 app-arch/zip
 app-containers/docker
+app-containers/docker-buildx
+app-containers/docker-cli
+app-containers/docker-compose
+app-crypt/gnupg
 app-editors/neovim
 app-emulation/wslu
 app-eselect/eselect-repository
@@ -13,9 +18,11 @@ app-misc/jq
 app-misc/tmux
 app-portage/eix
 app-portage/gentoolkit
+app-shells/direnv
 app-shells/fish
 app-shells/peco
 app-shells/starship
+dev-libs/libyaml
 dev-util/git-delta
 dev-util/github-cli
 dev-vcs/git

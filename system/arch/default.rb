@@ -8,6 +8,8 @@ include_recipe '../locale/default.rb'
   base-devel
   bat
   consul-template
+  docker-buildx
+  docker-compose
   fd
   fish
   fisher
