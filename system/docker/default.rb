@@ -1,4 +1,8 @@
-package 'docker'
+if node[:platform] == 'gentoo'
+  package 'app-containers/docker'
+else
+  package 'docker'
+end
 
 remote_file "/etc/docker/daemon.json" do
   source "files/etc/docker/daemon.json"
