@@ -8,8 +8,11 @@ link '/etc/portage/make.conf' do
   force true
 end
 
-remote_directory '/etc/portage/package.use' do
-  source 'files/etc/portage/package.use'
+directory '/etc/portage/package.use'
+
+link '/etc/portage/package.use/zz-autounmask' do
+  to File.expand_path('../files/etc/portage/package.use/zz-autounmask', __FILE__)
+  force true
 end
 
 link '/etc/profile.d/makeopts.sh' do
