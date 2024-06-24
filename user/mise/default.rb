@@ -1,5 +1,5 @@
-directory "#{ENV['HOME']}/.local/bin"
+directory "~/.local/bin"
 
 execute 'curl https://mise.run | sh' do
-  not_if 'command -vq mise'
+  not_if 'test -f ~/.local/bin/mise'
 end
