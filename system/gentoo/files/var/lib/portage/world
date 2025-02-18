@@ -37,3 +37,4 @@ sys-apps/fd
 sys-apps/lsd
 sys-apps/ripgrep
 sys-cluster/kubectl
+sys-cluster/kubeseal
