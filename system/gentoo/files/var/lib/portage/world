@@ -24,7 +24,6 @@ app-shells/direnv
 app-shells/fish
 app-shells/peco
 app-shells/starship
-dev-db/postgresql
 dev-libs/libyaml
 dev-util/github-cli
 dev-vcs/git
