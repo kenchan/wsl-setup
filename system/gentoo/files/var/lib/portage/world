@@ -24,6 +24,7 @@ app-shells/direnv
 app-shells/fish
 app-shells/fzf
 app-shells/starship
+dev-debug/strace
 dev-libs/libyaml
 dev-util/github-cli
 dev-vcs/git
