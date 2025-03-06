@@ -22,7 +22,7 @@ app-portage/flaggie
 app-portage/gentoolkit
 app-shells/direnv
 app-shells/fish
-app-shells/peco
+app-shells/fzf
 app-shells/starship
 dev-libs/libyaml
 dev-util/github-cli
