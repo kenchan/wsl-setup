@@ -1,53 +1,71 @@
-# My personal WSL setup
+# WSL Gentoo Setup
 
-## Supported Distributions
+This repository contains my personal WSL setup for Gentoo distribution.
 
-- Gentoo
+## Prerequisites
 
-## Usage
+- Windows 11 with WSL2 enabled
+- Gentoo WSL installed
 
-First, install required software.
+## Setup Steps
 
-```
+### 1. Initial System Configuration
+
+First, update the package database and install required packages:
+
+```shell
 emerge --sync && emerge curl dev-vcs/git sudo
 ```
 
-Allow wheel group to use `sudo`.
+### 2. User and Security Setup
 
-```
-visudo
-```
+1. Set root password for administrative tasks:
+   ```shell
+   passwd
+   ```
 
-Set root password.
+2. Configure sudo access for the wheel group:
+   ```shell
+   EDITOR=nano visudo
+   ```
+   Uncomment the following line:
+   ```
+   %wheel ALL=(ALL) ALL
+   ```
 
-```
-passwd
-```
+3. Create a regular user and add to the wheel group:
+   ```shell
+   useradd -m -G wheel kenchan
+   passwd kenchan
+   ```
 
-Create a regular user and add it to the wheel group.
+### 3. WSL Configuration
 
-```
-useradd -G wheel kenchan
-```
+1. Configure WSL by creating/editing `/etc/wsl.conf`:
+   ```shell
+   nano /etc/wsl.conf
+   ```
+   Add the following content:
+   ```ini
+   [boot]
+   systemd=true
 
-Set password for the regular user.
+   [user]
+   default=kenchan
 
-```
-passwd kenchan
-```
+   [network]
+   generateResolvConf=false
+   ```
 
-Configure `/etc/wsl.conf` as follows and restart.
+2. Restart WSL to apply changes:
+   ```shell
+   # Run this command from Windows PowerShell
+   wsl --shutdown
+   ```
 
-```
-[boot]
-systemd=true
+### 4. Provisioning
 
-[user]
-default=kenchan
-
-[network]
-generateResolvConf=false
-```
+After WSL restarts, run the following command to start the provisioning process:
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kenchan/wsl-setup/master/install.sh)"
