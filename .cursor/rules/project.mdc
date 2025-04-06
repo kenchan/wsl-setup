@@ -1,0 +1,36 @@
+---
+description: WSL Gentooセットアップリポジトリ
+globs: 
+alwaysApply: true
+---
+
+# WSL Gentooセットアップ
+
+このプロジェクトは、WSL上のGentooをセットアップするためのリポジトリです。mitameというmrubyでつくられたプロビジョニングツールを使用して環境を構築します。
+
+## プロジェクト構成
+
+- **mitame**: mrubyベースのプロビジョニングツール（bin/mitamaeで利用可能）
+- **system**: システム全体の設定（root権限で実行）
+  - [@system/gentoo](mdc:system/gentoo): Gentoo向けシステム設定
+  - [@system/systemd](mdc:system/systemd): systemd関連の設定
+  - [@system/docker](mdc:system/docker): Dockerの設定
+  - エントリポイント: [@system.rb](mdc:system.rb)
+- **user**: 一般ユーザー権限で実行する設定
+  - [@user/dotfiles](mdc:user/dotfiles): ドットファイル管理
+  - [@user/fish](mdc:user/fish): Fishシェル設定
+  - [@user/github_cli](mdc:user/github_cli): GitHub CLI設定
+  - [@user/mise](mdc:user/mise): mise（言語バージョン管理）設定
+  - [@user/ssh](mdc:user/ssh): SSH設定
+  - エントリポイント: [@user.rb](mdc:user.rb)
+
+## セットアップ手順
+
+1. 必須ソフトウェアのインストール: `emerge --sync && emerge curl dev-vcs/git sudo`
+2. sudoの設定: wheel グループにsudo権限を付与
+3. ユーザー作成とグループ追加
+4. `/etc/wsl.conf`の設定とWSL再起動
+5. インストールスクリプト実行: `[@install.sh](mdc:install.sh)`
+6. システム設定適用後、ユーザー設定を適用: `bin/mitamae local user.rb`
+
+詳細な手順は[@README.md](mdc:README.md)を参照してください。
