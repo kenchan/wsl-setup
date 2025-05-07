@@ -17,6 +17,7 @@ app-misc/1password-cli
 app-misc/ghq
 app-misc/jq
 app-misc/tmux
+app-misc/zellij
 app-portage/eix
 app-portage/flaggie
 app-portage/gentoolkit
