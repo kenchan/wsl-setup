@@ -10,9 +10,14 @@ end
 
 directory '/etc/portage/package.use'
 
-link '/etc/portage/package.use/zz-autounmask' do
-  to File.expand_path('../files/etc/portage/package.use/zz-autounmask', __FILE__)
-  force true
+# link '/etc/portage/package.use/zz-autounmask' do
+#   to File.expand_path('../files/etc/portage/package.use/zz-autounmask', __FILE__)
+#   force true
+# end
+
+execute 'create hardlink for zz-autounmask' do
+  command "ln -f #{File.expand_path('../files/etc/portage/package.use/zz-autounmask', __FILE__)} /etc/portage/package.use/zz-autounmask"
+  not_if "test -f /etc/portage/package.use/zz-autounmask -a $(stat -c %i /etc/portage/package.use/zz-autounmask) -eq $(stat -c %i #{File.expand_path('../files/etc/portage/package.use/zz-autounmask', __FILE__)})"
 end
 
 link '/etc/profile.d/makeopts.sh' do
