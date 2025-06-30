@@ -1,0 +1,2 @@
+# Allow members of wheel group to run emerge and eix-sync without password
+%wheel ALL=(root) NOPASSWD: /usr/bin/emerge, /usr/bin/eix-sync
