@@ -30,6 +30,9 @@ dev-libs/libyaml
 dev-util/github-cli
 dev-vcs/git
 dev-vcs/git-lfs
+dev-vcs/subversion
+media-gfx/imagemagick
+media-gfx/jpegoptim
 net-misc/socat
 net-misc/whois
 net-proxy/sshuttle
