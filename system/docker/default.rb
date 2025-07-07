@@ -25,9 +25,9 @@ file "/etc/subgid" do
   action :edit
   block do |content|
     if content.include?("dockremap")
-      content.sub!(/dockremap \d+:\d+/, "dockremap 1000:65536")
+      content.sub!(/dockremap \d+:\d+/, "dockremap:1000:65536")
     else
-      content << "dockremap 1000:65536"
+      content << "dockremap:1000:65536"
     end
   end
 end
