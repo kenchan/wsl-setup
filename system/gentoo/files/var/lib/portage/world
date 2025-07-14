@@ -31,8 +31,10 @@ dev-util/github-cli
 dev-vcs/git
 dev-vcs/git-lfs
 dev-vcs/subversion
+media-fonts/noto-cjk
 media-gfx/imagemagick
 media-gfx/jpegoptim
+media-video/ffmpeg
 net-misc/socat
 net-misc/whois
 net-proxy/sshuttle
