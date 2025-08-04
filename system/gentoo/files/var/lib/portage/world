@@ -28,6 +28,7 @@ app-shells/starship
 dev-debug/strace
 dev-libs/libyaml
 dev-util/github-cli
+dev-util/nvidia-cuda-toolkit
 dev-vcs/git
 dev-vcs/git-lfs
 dev-vcs/subversion
