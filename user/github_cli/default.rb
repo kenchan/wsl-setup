@@ -1,5 +1,6 @@
 %w(
   k1LoW/gh-grep
+  k1LoW/gh-triage
   seachicken/gh-poi
   kenchan/gh-furik
   github/gh-copilot
