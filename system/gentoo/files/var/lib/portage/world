@@ -10,7 +10,6 @@ app-containers/docker-cli
 app-containers/docker-compose
 app-crypt/gnupg
 app-editors/neovim
-app-emulation/wslu
 app-eselect/eselect-repository
 app-i18n/nkf
 app-misc/1password-cli
@@ -45,3 +44,4 @@ sys-apps/lsd
 sys-apps/ripgrep
 sys-cluster/kubectl
 sys-cluster/kubeseal
+x11-misc/xdg-utils
