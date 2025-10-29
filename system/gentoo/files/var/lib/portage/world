@@ -34,6 +34,7 @@ dev-vcs/subversion
 media-fonts/noto-cjk
 media-gfx/imagemagick
 media-gfx/jpegoptim
+media-gfx/pngquant
 media-video/ffmpeg
 net-misc/socat
 net-misc/whois
