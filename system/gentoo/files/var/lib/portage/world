@@ -36,6 +36,7 @@ media-gfx/imagemagick
 media-gfx/jpegoptim
 media-gfx/pngquant
 media-video/ffmpeg
+net-dns/doggo
 net-misc/socat
 net-misc/whois
 net-proxy/sshuttle
