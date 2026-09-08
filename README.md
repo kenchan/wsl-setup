@@ -1,21 +1,50 @@
-# WSL Gentoo Setup
+# WSL Setup (Gentoo / Arch Linux)
 
-This repository contains my personal WSL setup for Gentoo distribution.
+This repository contains my personal WSL setup for Gentoo and Arch Linux using mitamae.
 
 ## Prerequisites
 
 - Windows 11 with WSL2 enabled
-- Gentoo WSL installed
+- An x86_64 Gentoo or Arch Linux distribution installed on WSL2
+
+For Arch Linux, install the official WSL image from Windows PowerShell:
+
+```powershell
+wsl --update
+wsl --install -d archlinux
+```
+
+See the [Arch Linux download page](https://archlinux.org/download/#wsl-images)
+for the official installation method.
 
 ## Setup Steps
 
 ### 1. Initial System Configuration
 
-First, update the package database and install required packages:
+Run steps 1–3 as root inside the selected distribution. To open a root shell,
+run the following in Windows PowerShell, replacing `<DistroName>` with the name
+shown by `wsl --list --verbose` (for example, `archlinux`):
+
+```powershell
+wsl -d <DistroName> -u root
+```
+
+Install the prerequisites using the command for your distribution.
+
+#### Gentoo
 
 ```shell
-emerge --sync && emerge curl dev-vcs/git sudo
+emerge --sync && emerge net-misc/curl dev-vcs/git app-admin/sudo app-editors/nano
 ```
+
+#### Arch Linux
+
+```shell
+pacman -Syu --needed base-devel curl git sudo nano
+```
+
+`base-devel` is required before provisioning because the Arch recipe builds paru
+from the AUR.
 
 ### 2. User and Security Setup
 
@@ -33,11 +62,15 @@ emerge --sync && emerge curl dev-vcs/git sudo
    %wheel ALL=(ALL) ALL
    ```
 
-3. Create a regular user and add to the wheel group:
+3. Create a regular user and add to the wheel group (replace `kenchan` throughout
+   this guide if using a different username):
    ```shell
-   useradd -m -G wheel kenchan
+   useradd -m -G wheel -s /bin/bash kenchan
    passwd kenchan
    ```
+
+   If the user already exists, add it to the group with `usermod -aG wheel kenchan`
+   instead of running `useradd`.
 
 ### 3. WSL Configuration
 
@@ -45,28 +78,60 @@ emerge --sync && emerge curl dev-vcs/git sudo
    ```shell
    nano /etc/wsl.conf
    ```
-   Add the following content:
+   Merge the following settings into the existing file, preserving other settings
+   and avoiding duplicate sections:
    ```ini
    [boot]
    systemd=true
 
    [user]
    default=kenchan
-
-   [network]
-   generateResolvConf=false
    ```
 
+   For a new environment, leave WSL's automatic DNS configuration enabled; do not
+   add `generateResolvConf=false`. The existing system recipe configures
+   `systemd-resolved` with custom DNS servers, so review that recipe before
+   provisioning if you want to keep WSL-managed DNS.
+
 2. Restart WSL to apply changes:
+   ```powershell
+   wsl --terminate <DistroName>
+   wsl -d <DistroName>
+   ```
+
+   These commands run in Windows PowerShell. Termination stops processes in the
+   selected distribution, so finish any work there first.
+
+3. Check that the restarted shell uses the regular user and that sudo works:
+
    ```shell
-   # Run this command from Windows PowerShell
-   wsl --shutdown
+   whoami
+   sudo -v
    ```
 
 ### 4. Provisioning
 
-After WSL restarts, run the following command to start the provisioning process:
+The preparation above is shared by both distributions, apart from the initial
+package installation. mitamae selects the system recipe automatically.
+
+Before provisioning a new Arch environment, address the known recipe gaps:
+
+- Separate root-run pacman operations from user-run AUR builds.
+- Review the Docker subordinate UID/GID ranges and the custom DNS configuration.
+- Update the user dotfiles recipe from rcm to the current mise-based deployment.
+
+After those changes are available, run the following as the regular user. The
+installer clones this repository and immediately applies `system.rb` via sudo:
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kenchan/wsl-setup/master/install.sh)"
+```
+
+Then authenticate with GitHub and apply the user configuration from the repository
+directory, without sudo:
+
+```shell
+cd ~/src/github.com/kenchan/wsl-setup
+gh auth login
+bin/mitamae local user.rb
 ```
