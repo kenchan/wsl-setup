@@ -12,7 +12,12 @@ execute 'git switch master' do
   only_if 'git branch --show-current | grep -q deploy'
 end
 
-execute 'run rcup' do
-  command "RCRC=#{DOTFILES_DIR}/rcrc rcup -f"
-  not_if 'lsrc | grep -q dotfiles'
+execute 'trust dotfiles mise config' do
+  command 'mise trust mise.toml'
+  cwd DOTFILES_DIR
+end
+
+execute 'apply dotfiles with mise' do
+  command 'mise dotfiles apply --yes'
+  cwd DOTFILES_DIR
 end

@@ -53,6 +53,9 @@ Platform detection happens automatically via `node[:platform]` in mitamae recipe
 
 ## Configuration Management
 
+- Keep code comments minimal: only concise decision rationale that the code cannot express, such as why an alternative is not used. Put what/how explanations in commit messages.
+
 - System files are templated in `system/[component]/files/`
-- User dotfiles managed via `user/dotfiles/` using rcm/stow
+- User dotfiles managed via `user/dotfiles/` using `mise dotfiles apply`
+- Arch installs mise from the AUR `mise-bin` package; on Gentoo, `user/mise/` installs mise and adds `~/.local/bin` to the provisioning PATH. Dotfiles recipes invoke `mise` through PATH on both platforms
 - All configurations are declarative through mitamae recipes

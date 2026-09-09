@@ -30,7 +30,6 @@ include_recipe '../locale/default.rb'
   mise-bin
   neovim
   peco
-  rcm
   ripgrep
   sd
   socat

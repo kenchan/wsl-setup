@@ -166,7 +166,6 @@ Before provisioning a new Arch environment, address the known recipe gaps:
 
 - Separate root-run pacman operations from user-run AUR builds.
 - Review the Docker subordinate UID/GID ranges and the custom DNS configuration.
-- Update the user dotfiles recipe from rcm to the current mise-based deployment.
 
 After those changes are available, run the following as the regular user. The
 installer clones this repository and immediately applies `system.rb` via sudo:
@@ -183,3 +182,10 @@ cd ~/src/github.com/kenchan/wsl-setup
 gh auth login
 bin/mitamae local user.rb
 ```
+
+On Arch, the system recipe installs mise from the AUR (`mise-bin`). On Gentoo,
+the user recipe installs mise with the official installer into `~/.local/bin`
+and adds that directory to PATH for provisioning. The dotfiles recipe invokes
+`mise` through PATH on both platforms. It clones
+`kenchan/dotfiles`, trusts its `mise.toml`, and runs `mise dotfiles apply --yes`
+on each provisioning run to apply the current dotfiles configuration.

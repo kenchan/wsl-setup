@@ -1,4 +1,3 @@
-# 1password
 execute 'gpg --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22' do
   user ENV['SUDO_USER']
   not_if 'gpg -k | grep -q 3FEF9748469ADBE15DA7CA80AC2D62742012EA22'
