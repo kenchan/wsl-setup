@@ -1,6 +1,5 @@
 app-admin/consul-template
 app-admin/kubectx
-app-admin/rcm
 app-admin/stow
 app-admin/sudo
 app-arch/zip
@@ -15,8 +14,6 @@ app-i18n/nkf
 app-misc/1password-cli
 app-misc/ghq
 app-misc/jq
-app-misc/tmux
-app-misc/zellij
 app-portage/eix
 app-portage/flaggie
 app-portage/gentoolkit
@@ -24,6 +21,8 @@ app-shells/direnv
 app-shells/fish
 app-shells/fzf
 app-shells/starship
+app-text/poppler
+dev-db/duckdb
 dev-debug/strace
 dev-libs/libyaml
 dev-util/github-cli
