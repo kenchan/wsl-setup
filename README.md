@@ -183,6 +183,24 @@ gh auth login
 bin/mitamae local user.rb
 ```
 
+### Docker
+
+Gentoo runs Docker rootless: the daemon is a systemd user service rather than a
+system one. The system recipe installs `rootlesskit`, `slirp4netns` and
+`fuse-overlayfs`, deploys the systemd user units that portage does not ship,
+reserves a subordinate UID/GID range for the user, enables lingering so the
+daemon survives logout, and disables the system-wide daemon. `bin/mitamae local
+user.rb` then enables the user service and creates a `rootless` docker context
+pointing at `$XDG_RUNTIME_DIR/docker.sock`.
+
+A subordinate range is only reserved when the user has none, because rewriting
+an existing one would orphan everything already stored under
+`~/.local/share/docker`. A hand-written
+`~/.config/systemd/user/docker.service` takes precedence over the managed unit,
+so `user.rb` deletes one if it finds it. An older setup that ran the daemon out
+of `~/bin` keeps its images and containers, but the binaries under `~/bin`
+become unused.
+
 On Arch, the system recipe installs mise from the AUR (`mise-bin`). On Gentoo,
 the user recipe installs mise with the official installer into `~/.local/bin`
 and adds that directory to PATH for provisioning. The dotfiles recipe invokes

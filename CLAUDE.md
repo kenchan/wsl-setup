@@ -51,6 +51,25 @@ bin/mitamae local -o user/fish/default.rb
 
 Platform detection happens automatically via `node[:platform]` in mitamae recipes.
 
+### Docker
+
+Gentoo runs Docker rootless, in `system/docker/rootless.rb` plus `user/docker/`.
+The daemon is a systemd user service, so the system recipe reserves a
+subordinate UID/GID range, enables lingering and disables the system-wide
+daemon, while `user/docker/` enables the user service and points a `rootless`
+docker context at `$XDG_RUNTIME_DIR/docker.sock`, which the CLI does not probe
+on its own.
+
+The subordinate range is only reserved when the user has none. Rewriting an
+existing range would orphan everything already stored under
+`~/.local/share/docker`.
+
+Portage ships `dockerd-rootless.sh` inside `app-containers/docker` but no
+systemd user units, so those come from
+`system/docker/files/etc/systemd/user/`. `user/docker/` deletes a hand-written
+`~/.config/systemd/user/docker.service`, which would otherwise shadow the
+managed unit.
+
 ## Configuration Management
 
 - Keep code comments minimal: only concise decision rationale that the code cannot express, such as why an alternative is not used. Put what/how explanations in commit messages.
