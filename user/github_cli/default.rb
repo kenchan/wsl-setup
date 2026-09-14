@@ -3,7 +3,6 @@
   k1LoW/gh-triage
   seachicken/gh-poi
   kenchan/gh-furik
-  github/gh-copilot
   dlvhdr/gh-dash
 ).each do |ext|
   execute "install #{ext}" do
