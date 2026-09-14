@@ -53,7 +53,13 @@ Platform detection happens automatically via `node[:platform]` in mitamae recipe
 
 ### Docker
 
-Gentoo runs Docker rootless, in `system/docker/rootless.rb` plus `user/docker/`.
+Gentoo runs Docker rootless, in `system/gentoo/03_docker.rb` plus
+`user/docker/`. It sits under the platform directory because the two
+distributions assemble rootless mode differently: Gentoo builds it from portage
+packages and hand-deployed units, while Arch would pull in the AUR's
+`docker-rootless-extras`, which ships those units itself. `system/docker/`
+remains the rootful recipe Arch still uses.
+
 The daemon is a systemd user service, so the system recipe reserves a
 subordinate UID/GID range, enables lingering and disables the system-wide
 daemon, while `user/docker/` enables the user service and points a `rootless`
@@ -66,7 +72,7 @@ existing range would orphan everything already stored under
 
 Portage ships `dockerd-rootless.sh` inside `app-containers/docker` but not the
 user unit that `dockerd-rootless-setuptool.sh` would generate, so that comes from
-`system/docker/files/etc/systemd/user/`. Only `docker.service` -- upstream has no
+`system/gentoo/files/etc/systemd/user/`. Only `docker.service` -- upstream has no
 `docker.socket` for rootless, and one bound to the same path would collide with
 the socket `dockerd-rootless.sh` opens itself.
 
