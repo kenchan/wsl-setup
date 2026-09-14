@@ -70,4 +70,4 @@ end
   aur_package pkg
 end
 
-include_recipe '../docker/default.rb'
+include_recipe 'docker.rb'
