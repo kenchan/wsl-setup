@@ -186,12 +186,13 @@ bin/mitamae local user.rb
 ### Docker
 
 Gentoo runs Docker rootless: the daemon is a systemd user service rather than a
-system one. The system recipe installs `rootlesskit`, `slirp4netns` and
-`fuse-overlayfs`, deploys the systemd user units that portage does not ship,
-reserves a subordinate UID/GID range for the user, enables lingering so the
-daemon survives logout, and disables the system-wide daemon. `bin/mitamae local
-user.rb` then enables the user service and creates a `rootless` docker context
-pointing at `$XDG_RUNTIME_DIR/docker.sock`.
+system one. The system recipe installs `rootlesskit` and `slirp4netns`, deploys
+the systemd user unit that portage does not ship, arranges for `ip_tables` and
+`overlay` to be loaded at boot -- a user service cannot modprobe them the way the
+rootful daemon does -- reserves a subordinate UID/GID range for the user, enables
+lingering so the daemon survives logout, and disables the system-wide daemon.
+`bin/mitamae local user.rb` then enables the user service and creates a
+`rootless` docker context pointing at `$XDG_RUNTIME_DIR/docker.sock`.
 
 A subordinate range is only reserved when the user has none, because rewriting
 an existing one would orphan everything already stored under

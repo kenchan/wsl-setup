@@ -47,5 +47,4 @@ sys-apps/ripgrep
 sys-apps/rootlesskit
 sys-cluster/kubectl
 sys-cluster/kubeseal
-sys-fs/fuse-overlayfs
 x11-misc/xdg-utils

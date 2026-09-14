@@ -64,11 +64,17 @@ The subordinate range is only reserved when the user has none. Rewriting an
 existing range would orphan everything already stored under
 `~/.local/share/docker`.
 
-Portage ships `dockerd-rootless.sh` inside `app-containers/docker` but no
-systemd user units, so those come from
-`system/docker/files/etc/systemd/user/`. `user/docker/` deletes a hand-written
-`~/.config/systemd/user/docker.service`, which would otherwise shadow the
-managed unit.
+Portage ships `dockerd-rootless.sh` inside `app-containers/docker` but not the
+user unit that `dockerd-rootless-setuptool.sh` would generate, so that comes from
+`system/docker/files/etc/systemd/user/`. Only `docker.service` -- upstream has no
+`docker.socket` for rootless, and one bound to the same path would collide with
+the socket `dockerd-rootless.sh` opens itself.
+
+`/etc/modules-load.d/docker.conf` loads `ip_tables` and `overlay` at boot. The
+rootful daemon modprobes them itself, but a user service has no permission to.
+
+`user/docker/` deletes a hand-written `~/.config/systemd/user/docker.service`,
+which would otherwise shadow the managed unit.
 
 ## Configuration Management
 

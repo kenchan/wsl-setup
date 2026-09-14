@@ -4,21 +4,32 @@ DOCKER_USER = ENV['SUDO_USER']
   app-containers/docker
   app-containers/slirp4netns
   sys-apps/rootlesskit
-  sys-fs/fuse-overlayfs
 ).each do |pkg|
   package pkg
 end
 
-# Portage ships dockerd-rootless.sh but none of the systemd user units for it.
+# The rootful daemon modprobes what it needs; a user service cannot.
+remote_file '/etc/modules-load.d/docker.conf' do
+  source 'files/etc/modules-load.d/docker.conf'
+  mode '644'
+  owner 'root'
+  group 'root'
+  notifies :run, 'execute[systemctl restart systemd-modules-load]'
+end
+
+execute 'systemctl restart systemd-modules-load' do
+  action :nothing
+end
+
+# Portage ships dockerd-rootless.sh but not the systemd user unit that
+# dockerd-rootless-setuptool.sh would generate.
 directory '/etc/systemd/user'
 
-%w(docker.service docker.socket).each do |unit|
-  remote_file "/etc/systemd/user/#{unit}" do
-    source "files/etc/systemd/user/#{unit}"
-    mode '644'
-    owner 'root'
-    group 'root'
-  end
+remote_file '/etc/systemd/user/docker.service' do
+  source 'files/etc/systemd/user/docker.service'
+  mode '644'
+  owner 'root'
+  group 'root'
 end
 
 # An existing range is left alone: rewriting it would orphan everything already
