@@ -10,13 +10,11 @@ include_recipe 'aur_package_define.rb'
   package pkg
 end
 
-# The official docker package omits dockerd-rootless.sh and its systemd user
-# units; only the AUR carries them.
+# The official docker package omits dockerd-rootless.sh and its user units.
 aur_package 'docker-rootless-extras'
 
-# The WSL image was unpacked without xattrs, so everything shadow ships lost its
-# file capabilities and rootlesskit cannot map the subordinate ids. Packages
-# installed by pacman afterwards keep theirs, so only the image needs repairing.
+# The WSL image was unpacked without xattrs, so everything it shipped lost its
+# file capabilities and rootlesskit cannot map the subordinate ids.
 {
   '/usr/bin/newuidmap' => 'cap_setuid+ep',
   '/usr/bin/newgidmap' => 'cap_setgid+ep',

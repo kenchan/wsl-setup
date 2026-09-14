@@ -6,8 +6,7 @@
   package pkg
 end
 
-# Portage ships dockerd-rootless.sh but not the systemd user unit that
-# dockerd-rootless-setuptool.sh would generate.
+# Portage ships dockerd-rootless.sh but not a systemd user unit for it.
 directory '/etc/systemd/user'
 
 remote_file '/etc/systemd/user/docker.service' do
