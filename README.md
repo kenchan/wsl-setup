@@ -183,9 +183,21 @@ gh auth login
 bin/mitamae local user.rb
 ```
 
+### Arch packages
+
+Most packages come from the official repositories. The few that only exist in the
+AUR are built by paru, which the system recipe bootstraps from source. Neither
+paru nor makepkg runs as root, so those builds drop to the user that invoked
+sudo, and the wheel group is granted passwordless `pacman` so the install step
+has nothing to prompt for.
+
+The Arch WSL rootfs arrives without xattrs, so the file capabilities on
+`newuidmap`/`newgidmap` are missing. Rootless Docker cannot map IDs until the
+recipe sets them back.
+
 ### Docker
 
-Gentoo runs Docker rootless. `system.rb` installs `rootlesskit`/`slirp4netns`,
+Both distributions run Docker rootless. `system.rb` installs `rootlesskit`/`slirp4netns`,
 deploys the systemd user unit, reserves a subordinate UID/GID range, enables
 lingering and disables the system-wide daemon. `bin/mitamae local user.rb`
 enables the user service and creates a `rootless` docker context; the CLI does
@@ -204,7 +216,7 @@ Notes:
 - A daemon previously run out of `~/bin` keeps its data. The binaries there
   become unused.
 
-On Arch, the system recipe installs mise from the AUR (`mise-bin`). On Gentoo,
+On Arch, the system recipe installs mise from the official `mise` package. On Gentoo,
 the user recipe installs mise with the official installer into `~/.local/bin`
 and adds that directory to PATH for provisioning. The dotfiles recipe invokes
 `mise` through PATH on both platforms. It clones
