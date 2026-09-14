@@ -1,50 +1,73 @@
-include_recipe 'paru.rb'
-include_recipe 'gpg_keys.rb'
 include_recipe 'pacman.rb'
 include_recipe '../locale/default.rb'
+include_recipe '../sudoers/default.rb'
+include_recipe 'paru.rb'
+include_recipe 'gpg_keys.rb'
+include_recipe 'aur_package_define.rb'
 
 %w(
-  1password-cli
   base-devel
   bat
   consul-template
-  docker-buildx
-  docker-compose
+  direnv
+  doggo
+  duckdb
   fd
+  ffmpeg
   fish
-  fisher
-  frgm
-  ghq-bin
+  fzf
+  ghq
   git
   git-delta
   git-lfs
   github-cli
-  google-cloud-cli
+  gnupg
+  imagemagick
+  jpegoptim
   jq
-  kagiana
   kubectl
   kubectx
+  kubeseal
   less
+  libyaml
   lsd
-  man
-  mise-bin
+  man-db
+  mise
   neovim
+  noto-fonts-cjk
   peco
+  pngquant
+  poppler
   ripgrep
   sd
   socat
   sshuttle
   starship
   stow
+  strace
+  subversion
+  sudo
   tailspin
   tmux
   unzip
   vault
   wget
-  win32yank-bin
+  whois
+  xdg-utils
   zip
 ).each do |pkg|
   package pkg
+end
+
+%w(
+  1password-cli
+  frgm
+  google-cloud-cli
+  kagiana
+  nkf
+  win32yank-bin
+).each do |pkg|
+  aur_package pkg
 end
 
 include_recipe '../docker/default.rb'
