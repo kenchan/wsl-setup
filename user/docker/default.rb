@@ -18,7 +18,9 @@ end
 
 execute 'enable the rootless docker user service' do
   command 'systemctl --user enable --now docker.service'
-  not_if 'systemctl --user -q is-enabled docker.service'
+  # Checking only is-enabled would skip a service that is enabled but stopped,
+  # which is exactly the state a failed start leaves behind.
+  not_if 'systemctl --user -q is-enabled docker.service && systemctl --user -q is-active docker.service'
 end
 
 # The rootless socket lives under XDG_RUNTIME_DIR, which the CLI does not
