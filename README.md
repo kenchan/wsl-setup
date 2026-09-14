@@ -185,22 +185,20 @@ bin/mitamae local user.rb
 
 ### Docker
 
-Gentoo runs Docker rootless: the daemon is a systemd user service rather than a
-system one. The system recipe installs `rootlesskit` and `slirp4netns`, deploys
-the systemd user unit that portage does not ship, arranges for `ip_tables` and
-`overlay` to be loaded at boot -- a user service cannot modprobe them the way the
-rootful daemon does -- reserves a subordinate UID/GID range for the user, enables
-lingering so the daemon survives logout, and disables the system-wide daemon.
-`bin/mitamae local user.rb` then enables the user service and creates a
-`rootless` docker context pointing at `$XDG_RUNTIME_DIR/docker.sock`.
+Gentoo runs Docker rootless. `system.rb` installs `rootlesskit`/`slirp4netns`,
+deploys the systemd user unit, reserves a subordinate UID/GID range, enables
+lingering and disables the system-wide daemon. `bin/mitamae local user.rb`
+enables the user service and creates a `rootless` docker context; the CLI does
+not find the user socket on its own.
 
-A subordinate range is only reserved when the user has none, because rewriting
-an existing one would orphan everything already stored under
-`~/.local/share/docker`. A hand-written
-`~/.config/systemd/user/docker.service` takes precedence over the managed unit,
-so `user.rb` deletes one if it finds it. An older setup that ran the daemon out
-of `~/bin` keeps its images and containers, but the binaries under `~/bin`
-become unused.
+Notes:
+
+- An existing subordinate range is left alone, so images under
+  `~/.local/share/docker` survive.
+- A hand-written `~/.config/systemd/user/docker.service` is deleted by
+  `user.rb`; it would shadow the managed unit.
+- A daemon previously run out of `~/bin` keeps its data. The binaries there
+  become unused.
 
 On Arch, the system recipe installs mise from the AUR (`mise-bin`). On Gentoo,
 the user recipe installs mise with the official installer into `~/.local/bin`

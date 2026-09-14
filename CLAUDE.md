@@ -53,34 +53,15 @@ Platform detection happens automatically via `node[:platform]` in mitamae recipe
 
 ### Docker
 
-Gentoo runs Docker rootless, in `system/gentoo/03_docker.rb` plus
-`user/docker/`. It sits under the platform directory because the two
-distributions assemble rootless mode differently: Gentoo builds it from portage
-packages and hand-deployed units, while Arch would pull in the AUR's
-`docker-rootless-extras`, which ships those units itself. `system/docker/`
-remains the rootful recipe Arch still uses.
+Gentoo runs Docker rootless (`system/gentoo/03_docker.rb` + `user/docker/`). It lives under `system/gentoo/` rather than `system/docker/` because Arch would build rootless from the AUR's `docker-rootless-extras`, which ships the systemd unit that Gentoo has to deploy by hand. `system/docker/` is the rootful recipe; only Arch uses it.
 
-The daemon is a systemd user service, so the system recipe reserves a
-subordinate UID/GID range, enables lingering and disables the system-wide
-daemon, while `user/docker/` enables the user service and points a `rootless`
-docker context at `$XDG_RUNTIME_DIR/docker.sock`, which the CLI does not probe
-on its own.
+Things that look redundant but are not:
 
-The subordinate range is only reserved when the user has none. Rewriting an
-existing range would orphan everything already stored under
-`~/.local/share/docker`.
-
-Portage ships `dockerd-rootless.sh` inside `app-containers/docker` but not the
-user unit that `dockerd-rootless-setuptool.sh` would generate, so that comes from
-`system/gentoo/files/etc/systemd/user/`. Only `docker.service` -- upstream has no
-`docker.socket` for rootless, and one bound to the same path would collide with
-the socket `dockerd-rootless.sh` opens itself.
-
-`/etc/modules-load.d/docker.conf` loads `ip_tables` and `overlay` at boot. The
-rootful daemon modprobes them itself, but a user service has no permission to.
-
-`user/docker/` deletes a hand-written `~/.config/systemd/user/docker.service`,
-which would otherwise shadow the managed unit.
+- `/etc/systemd/user/docker.service` is hand-deployed: portage ships `dockerd-rootless.sh` but not the unit. Do not add a `docker.socket`; it would collide with the socket `dockerd-rootless.sh` opens itself.
+- `modules-load.d/docker.conf` exists because a user service cannot modprobe `ip_tables`/`overlay`.
+- The subordinate UID/GID range is reserved only when the user has none. Changing an existing range orphans everything under `~/.local/share/docker`.
+- `user/docker/` deletes `~/.config/systemd/user/docker.service`, which would shadow the managed unit.
+- `fuse-overlayfs` is deliberately absent; the host uses the native overlay2 driver.
 
 ## Configuration Management
 
