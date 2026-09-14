@@ -1,12 +1,19 @@
 if node[:platform] == 'gentoo'
-  # A hand-written unit under ~/.config takes precedence over the managed one.
+  # A hand-written unit under ~/.config shadows the managed one, and its
+  # enablement symlink still points there once it is gone, so is-enabled keeps
+  # reporting success and nothing would pick up the replacement.
   file "#{ENV['HOME']}/.config/systemd/user/docker.service" do
     action :delete
     only_if "grep -q dockerd-rootless #{ENV['HOME']}/.config/systemd/user/docker.service"
-    notifies :run, 'execute[systemctl --user daemon-reload]', :immediately
+    notifies :run, 'execute[switch to the managed docker user service]', :immediately
   end
 
-  execute 'systemctl --user daemon-reload' do
+  execute 'switch to the managed docker user service' do
+    command <<-EOS
+      systemctl --user daemon-reload &&
+      systemctl --user reenable docker.service &&
+      systemctl --user restart docker.service
+    EOS
     action :nothing
   end
 
