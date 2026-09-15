@@ -174,12 +174,10 @@ installer clones this repository and immediately applies `system.rb` via sudo:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kenchan/wsl-setup/master/install.sh)"
 ```
 
-Then authenticate with GitHub and apply the user configuration from the repository
-directory, without sudo:
+Then apply the user configuration from the repository directory, without sudo:
 
 ```shell
 cd ~/src/github.com/kenchan/wsl-setup
-gh auth login
 bin/mitamae local user.rb
 ```
 
