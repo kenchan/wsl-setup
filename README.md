@@ -162,13 +162,8 @@ systemctl --user is-system-running
 The preparation above is shared by both distributions, apart from the initial
 package installation. mitamae selects the system recipe automatically.
 
-Before provisioning a new Arch environment, address the known recipe gaps:
-
-- Separate root-run pacman operations from user-run AUR builds.
-- Review the Docker subordinate UID/GID ranges and the custom DNS configuration.
-
-After those changes are available, run the following as the regular user. The
-installer clones this repository and immediately applies `system.rb` via sudo:
+Run the following as the regular user. The installer clones this repository and
+immediately applies `system.rb` via sudo:
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kenchan/wsl-setup/master/install.sh)"
@@ -181,9 +176,31 @@ cd ~/src/github.com/kenchan/wsl-setup
 bin/mitamae local user.rb
 ```
 
-On Arch, the system recipe installs mise from the AUR (`mise-bin`). On Gentoo,
+On Arch, the system recipe installs mise from the official `mise` package. On Gentoo,
 the user recipe installs mise with the official installer into `~/.local/bin`
 and adds that directory to PATH for provisioning. The dotfiles recipe invokes
 `mise` through PATH on both platforms. It clones
 `kenchan/dotfiles`, trusts its `mise.toml`, and runs `mise dotfiles apply --yes`
 on each provisioning run to apply the current dotfiles configuration.
+
+### Arch packages
+
+Most packages come from the official repositories. The few that only exist in the
+AUR are built by paru, which the system recipe bootstraps from source. Neither
+paru nor makepkg runs as root, so those builds drop to the user that invoked
+sudo, and the wheel group is granted passwordless `pacman`.
+
+The Arch WSL rootfs arrives without xattrs, so the file capabilities on
+`newuidmap`/`newgidmap` are missing. Rootless Docker cannot map IDs until the
+recipe sets them back.
+
+### Docker
+
+Both distributions run Docker rootless. `system.rb` installs `rootlesskit` and
+`slirp4netns`, reserves a subordinate UID/GID range, enables lingering and
+disables the system-wide daemon. `bin/mitamae local user.rb` writes the systemd
+user unit and creates a `rootless` docker context; the CLI does not find the user
+socket on its own.
+
+An existing subordinate range is left alone, so images under
+`~/.local/share/docker` survive.
