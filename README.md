@@ -14,6 +14,10 @@ wsl --update
 wsl --install -d archlinux
 ```
 
+Launch `archlinux` normally at least once before continuing. The official image
+runs its bundled first-setup script on first launch, which initializes the pacman
+keyring. If the installer did not open a shell, run `wsl -d archlinux`.
+
 See the [Arch Linux download page](https://archlinux.org/download/#wsl-images)
 for the official installation method.
 
@@ -38,14 +42,6 @@ emerge --sync && emerge net-misc/curl dev-vcs/git app-admin/sudo app-editors/nan
 ```
 
 #### Arch Linux
-
-Initialize the pacman keyring on a fresh WSL image before installing packages:
-
-```shell
-curl -fsSL https://raw.githubusercontent.com/kenchan/wsl-setup/master/bin/bootstrap-arch-keyring | bash
-```
-
-Then install the prerequisites:
 
 ```shell
 pacman -Syu --needed base-devel curl git sudo nano
