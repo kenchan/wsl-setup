@@ -39,6 +39,14 @@ emerge --sync && emerge net-misc/curl dev-vcs/git app-admin/sudo app-editors/nan
 
 #### Arch Linux
 
+Initialize the pacman keyring on a fresh WSL image before installing packages:
+
+```shell
+curl -fsSL https://raw.githubusercontent.com/kenchan/wsl-setup/master/bin/bootstrap-arch-keyring | bash
+```
+
+Then install the prerequisites:
+
 ```shell
 pacman -Syu --needed base-devel curl git sudo nano
 ```
