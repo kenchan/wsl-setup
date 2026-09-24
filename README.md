@@ -122,33 +122,28 @@ systemctl --user is-system-running
 
 ### 3. WSL Configuration
 
-1. Configure WSL by creating/editing `/etc/wsl.conf`:
+1. Place the shared WSL configuration as root:
    ```shell
-   nano /etc/wsl.conf
+   curl -fsSL https://raw.githubusercontent.com/kenchan/wsl-setup/master/bootstrap/wsl.conf -o /etc/wsl.conf
    ```
-   Merge the following settings into the existing file, preserving other settings
-   and avoiding duplicate sections:
-   ```ini
-   [boot]
-   systemd=true
 
-   [user]
-   default=kenchan
-   ```
+   This file enables systemd and sets `kenchan` as the default user. If
+   `/etc/wsl.conf` already contains other settings, review them before replacing
+   it.
 
    For a new environment, leave WSL's automatic DNS configuration enabled; do not
    add `generateResolvConf=false`. The existing system recipe configures
    `systemd-resolved` with custom DNS servers, so review that recipe before
    provisioning if you want to keep WSL-managed DNS.
 
-2. Restart WSL to apply changes:
+2. Restart WSL to apply the configuration:
    ```powershell
-   wsl --terminate <DistroName>
+   wsl --shutdown
    wsl -d <DistroName>
    ```
 
-   These commands run in Windows PowerShell. Termination stops processes in the
-   selected distribution, so finish any work there first.
+   These commands run in Windows PowerShell. Shutdown stops processes in every
+   running distribution, so finish any work there first.
 
 3. Check that the restarted shell uses the regular user and that sudo works:
 
