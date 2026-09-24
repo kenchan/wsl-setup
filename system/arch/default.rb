@@ -11,7 +11,6 @@ include_recipe '../sudoers/default.rb'
   duckdb
   fd
   ffmpeg
-  fish
   fzf
   ghq
   git

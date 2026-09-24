@@ -156,6 +156,7 @@ systemctl --user is-system-running
 
 The preparation above is shared by both distributions, apart from the initial
 package installation. mitamae selects the system recipe automatically.
+The system recipe installs fish and sets it as `kenchan`'s login shell.
 
 Run the following as the regular user. The installer clones this repository and
 immediately applies `system.rb` via sudo:
