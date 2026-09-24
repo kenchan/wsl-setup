@@ -70,16 +70,12 @@ from the AUR.
    %wheel ALL=(ALL) ALL
    ```
 
-3. Create a regular user and add to the wheel group (replace `kenchan` throughout
-   this guide if using a different username). If running Gentoo and Arch at the
-   same time, use the explicit UID/GID example below instead:
+3. Create the `kenchan` user in the wheel group. The UID and GID are assigned
+   automatically:
    ```shell
-   useradd -m -G wheel -s /bin/bash kenchan
+   curl -fsSL https://raw.githubusercontent.com/kenchan/wsl-setup/master/bin/bootstrap-user | bash
    passwd kenchan
    ```
-
-   If the user already exists, add it to the group with `usermod -aG wheel kenchan`
-   instead of running `useradd`.
 
 #### Running multiple WSL2 distributions simultaneously
 

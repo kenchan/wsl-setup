@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+groupadd kenchan
+useradd -m -g kenchan -G wheel -s /bin/bash kenchan
