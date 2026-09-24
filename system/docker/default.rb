@@ -1,51 +1,30 @@
-if node[:platform] == 'gentoo'
-  package 'app-containers/docker'
-else
-  package 'docker'
+DOCKER_USER = ENV['SUDO_USER']
+
+# The rootful daemon modprobes what it needs; a user service cannot.
+remote_file '/etc/modules-load.d/docker.conf' do
+  source 'files/etc/modules-load.d/docker.conf'
+  mode '644'
+  owner 'root'
+  group 'root'
+  notifies :run, 'execute[systemctl restart systemd-modules-load]'
 end
 
-directory "/etc/docker"
-
-remote_file "/etc/docker/daemon.json" do
-  source "files/etc/docker/daemon.json"
+execute 'systemctl restart systemd-modules-load' do
+  action :nothing
 end
 
-file "/etc/subuid" do
-  action :edit
-  block do |content|
-    if content.include?("dockremap")
-      content.sub!(/dockremap:\d+:\d+/, "dockremap:1000:65536")
-    else
-      content << "dockremap:1000:65536"
-    end
-  end
+# An existing range is left alone: rewriting it would orphan everything already
+# stored under ~/.local/share/docker.
+execute 'reserve subordinate ids for rootless docker' do
+  command "usermod --add-subuids 100000-165535 --add-subgids 100000-165535 #{DOCKER_USER}"
+  not_if "grep -q '^#{DOCKER_USER}:' /etc/subuid && grep -q '^#{DOCKER_USER}:' /etc/subgid"
 end
 
-file "/etc/subgid" do
-  action :edit
-  block do |content|
-    if content.include?("dockremap")
-      content.sub!(/dockremap \d+:\d+/, "dockremap:1000:65536")
-    else
-      content << "dockremap:1000:65536"
-    end
-  end
+execute 'disable the system-wide docker daemon' do
+  command 'systemctl disable --now docker.socket docker.service'
+  only_if 'systemctl is-enabled docker.socket docker.service 2>/dev/null | grep -q "^enabled"'
 end
 
-execute "gpasswd -a #{ENV['SUDO_USER']} docker" do
-  not_if "groups #{ENV['SUDO_USER']} | grep -q docker"
-end
-
-if node[:platform] == 'gentoo'
-  execute 'systemctl start docker' do
-    not_if 'systemctl -q is-active docker'
-  end
-
-  execute 'systemctl enable docker' do
-    not_if 'systemctl -q is-enabled docker'
-  end
-else
-  service 'docker' do
-    action [:enable, :start]
-  end
+execute "loginctl enable-linger #{DOCKER_USER}" do
+  not_if "loginctl show-user #{DOCKER_USER} --property=Linger | grep -q yes"
 end
